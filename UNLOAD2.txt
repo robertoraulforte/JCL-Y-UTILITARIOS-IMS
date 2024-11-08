@@ -1,0 +1,46 @@
+
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(UNLOAD2) - 01.03  Line 0000000000 Col 0
+ Command ===>                                                  Scroll ===
+********************************* Top of Data ***************************
+//RRFORTET JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),            
+//         NOTIFY=&SYSUID                                                
+//********************************************************************** 
+//*                 UNLOAD DE LA BASE DE CURSO                           
+//********************************************************************** 
+//DELETE  EXEC PGM=IDCAMS                                                
+//SYSPRINT DD SYSOUT=*                                                   
+//SYSIN   DD *                                                           
+  DELETE G$MIGRA.RRFORTE.CURSO01.UNLOAD                                  
+  SET MAXCC=00                                                           
+/*                                                                       
+//*                                                                      
+//UNLOAD   EXEC PGM=DFSRRC00,                                            
+//*          PARM='ULU,DFSURGU0,CURSO01'                                 
+//           PARM='ULU,DFSURGU0,CURSO01,,,,,,,,,,,N,,'                   
+//STEPLIB  DD DSNAME=DFSF10.SDFSRESL,DISP=SHR                            
+//DFSRESLB DD DSNAME=DFSF10.SDFSRESL,DISP=SHR                            
+//IMS      DD DSNAME=G$MIGRA.RRFORTE.DBDLIB,DISP=SHR                     
+//SYSPRINT DD SYSOUT=*                                           
+//CURSO01  DD DSN=G$MIGRA.RRFORTE.CURSO01,DISP=SHR               
+//DFSURGU1 DD DSNAME=G$MIGRA.RRFORTE.CURSO01.UNLOAD,             
+//          DISP=(NEW,CATLG,DELETE),                             
+//          SPACE=(CYL,(1,1),RLSE),                              
+//          UNIT=SYSDA                                           
+//DFSVSAMP DD *                                                  
+IOBF=(4096,100,N,N,SP01)                                         
+IOBF=(8192,200,N,N,SP01)                                         
+/*                                                               
+//DFSCTL    DD *                                                 
+SBPARM ACTIV=COND                                                
+/*                                                               
+//*****************************************************          
+//                                                               
+******************************** Bottom of Data *****************
+
+
+
+                                                  

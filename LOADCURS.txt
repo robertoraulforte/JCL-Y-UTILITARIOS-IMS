@@ -1,0 +1,95 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(LOADCURS) - 01.14 Line 0000000000 Col 0
+ Command ===>                                                  Scroll ===
+********************************* Top of Data ***************************
+//FASTORGL JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),            
+//             NOTIFY=&SYSUID                                            
+//********************************************************************** 
+//*              PRIMERA CARGA DE LA BASE DE DATOS                     * 
+//********************************************************************** 
+//*               DFSRRC00(IMS)                                          
+//* PARM=(DLI,&MBR,&PSB,&BUF,                                            
+//* &SPIE&TEST&EXCPVR&RST,&PRLD,                                         
+//* &SRCH,&CKPTID,&MON,&LOGA,&FMTO,                                      
+//* &IMSID,&SWAP,&DBRC,&IRLM,&IRLMNM,                                    
+//* &BKO,&IOB,&SSM,'&APARM',                                             
+//* &LOCKMAX,&GSGNAME,&TMINAME,                                          
+//* &RRS,&IMSPLEX,&RGSUF,                                                
+//* '&PARM1','&PARM2')                                                   
+//********************************************************************** 
+//* 1-DLI(BATCH)                                                         
+//* 2-DFSDDLT0(UTILITARIO)                                               
+//* 3-PSB                                                                
+//* 4-BUF(8): ESPECIFICA UN NúMERO DE UNO A TRES DíGITOS QUE DEFINE EL    
+//*        NúMERO DE BLOQUES DE 1K QUE SESE UTILIZA PARA CALCULAR         
+//*        EL TAMAñO DE LOS SUBPOOLS DE OSAM. ESTE PARáMETRO SóLO         
+//*        SE APLICA A UN ENTORNO BATCH DL/I; SE UTILIZA SóLO             
+//*        SI EL CONJUNTO DE DATOS DFSVSAMP NO SE SUMINISTRA O NO         
+//*        INCLUYE NINGUNA DECLARACIóN DE CONTROL DEL IOBF.               
+//*                                                                       
+//* 14-DBRC(N): SPECIFIES THAT DBRC IS NOT USED DURING THIS EXECUTION     
+//**********************************************************************  
+//STEP1 EXEC PGM=DFSRRC00,                                                
+//       PARM='DLI,DFSDDLT0,FRACUR01,8,00,,,,,,,,,N,,',                   
+//       REGION=4000K                                                     
+//STEPLIB DD DSN=DFSF10.SDFSRESL,DISP=SHR                                 
+//IMS     DD DSN=G$MIGRA.FASTORG.PSBLIB,DISP=SHR                          
+//        DD DSN=G$MIGRA.FASTORG.DBDLIB,DISP=SHR                          
+//*DFSVSAMP DD *                                                          
+//* IOBF=(4096,100,N,N,SP01)                                              
+//* IOBF=(8192,200,N,N,SP01)                                              
+//CURSO01 DD DSN=G$MIGRA.FASTORG.CURSO01,DISP=SHR                      
+//PRINTDD DD SYSOUT=*                                                  
+//SYSUDUMP DD SYSOUT=*                                                 
+//IEFRDER DD DUMMY                                                     
+//SYSIN DD *                                                           
+U LISTAR VARIOS SEGMENTOS CON GET NEXT                                 
+S 1 1 1 1 1    CURSO01                                                 
+L        GU                                                            
+EH8    OK                                                              
+L   9999 GN                                                            
+/*                                                                     
+//                                                                     
+//*******************************************************************  
+//*                  PRUEBAS CON DL/I                               *  
+//*******************************************************************  
+//SYSIN DD *                                                           
+U DELETE DE UN SEGMENTO ESPECIFICO                                     
+S 1 1 1 1 1    CURSO01                                                 
+L        GHU   CURSO   (CURSOID = 12348)                       
+L        DLET                                                  
+/*                                                             
+//SYSIN DD *                                                   
+U ACTUALIZANDO DATOS                                           
+S 1 1 1 1 1    CURSO01                                         
+L        GHU   CURSO   (CURSOID = 12348)                       
+L        REPL                                                  
+L   0030 DATA  12348ROBERTWICK                                 
+/*                                                             
+//SYSIN   DD *                                                 
+U INSERTAR VARIOS DATOS                                        
+S 1 1 1 1 1    CURSO01                                         
+L        ISRT  CURSO                                           
+L        DATA  12346ANGGY                                      
+L        ISRT  CURSO                                           
+L        DATA  12347KIMBERLY                                   
+L        ISRT  CURSO                                           
+L        DATA  12348ROBERTO                                   
+L        ISRT  CURSO                                          
+L        DATA  12349LUCAS                                     
+/*                                                            
+//SYSIN   DD *                                                
+U AGARRAR UN DATO UNICO CON GET UNIQUE                        
+S 1 1 1 1 1    CURSO01                                        
+L        GU    CURSO                                          
+/*                                                            
+//SYSIN   DD *                                                
+U INSERTAR UN DATO CON INSERT                                 
+S 1 1 1 1 1    CURSO01                                        
+L      1 ISRT  CURSO                                          
+L        DATA  12345FRANCO                                    
+/*                                                            
+******************************** Bottom of Data **************

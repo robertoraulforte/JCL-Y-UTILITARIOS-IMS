@@ -1,0 +1,32 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(COMPDBD) - 01.01  Line 000000
+ Command ===>                                                  
+********************************* Top of Data *****************
+//COMPLINK  JOB (ACCTINFO),'COMPILAR Y LINK DBD',              
+//          CLASS=A,MSGCLASS=X,NOTIFY=&SYSUID                  
+//*********************************************************    
+//* COMPILAR Y LINKEDITAR UNA DBD DESDE UN DATASET EXTERNO     
+//*********************************************************    
+//STEP1    EXEC PGM=DFSRRC00,REGION=4096K,                     
+//             PARM=(DBD,FORMAT)                               
+//STEPLIB  DD  DSN=DFSF10.SDFSRESL,DISP=SHR                    
+//SYSPRINT DD  SYSOUT=*                                        
+//SYSIN    DD  DSN=G$MIGRA.RRFORTE.DBSSRC(CUR00DBD),DISP=SHR   
+//********************************************************     
+//* PASO DE LINKEDICIÓN                                        
+//********************************************************     
+//LINKEDIT EXEC PGM=IEWL,REGION=4096K,                         
+//             PARM='MAP,LET,NCAL'                             
+//SYSLMOD  DD  DSN=G$MIGRA.RRFORTE.DBDLIB(CUR00DBD),DISP=SHR   
+//SYSPRINT DD  SYSOUT=*                                        
+//SYSLIN   DD  *                                               
+ INCLUDE SYSLIB(DFSF10.SDFSRESL)                         
+ ENTRY CUR00DBD                                          
+ NAME CUR00DBD(R)                                        
+//*                                                      
+//SYSLIB   DD DSN=DFSF10.SDFSRESL,DISP=SHR               
+//                                                       
+******************************** Bottom of Data *********

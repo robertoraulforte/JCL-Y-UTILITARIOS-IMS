@@ -1,0 +1,15 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(CREABACK) - 01.04 Line 0000000000 Co
+ Command ===>                                                  Scroll 
+********************************* Top of Data ************************
+//RRFORTEB JOB 'CREA BACK',CLASS=A,MSGCLASS=A,MSGLEVEL=(1,1),         
+//         NOTIFY=&SYSUID                                             
+//STEP001  EXEC PGM=IEFBR14                                           
+//DD01     DD DSN=G$MIGRA.RRFORTE.CURSO01.BKUP.#&YYMMDD..#&HHMMSS,    
+//         DISP=(,CATLG,DELETE),                                      
+//         SPACE=(CYL,(1,1)),                                         
+//         DCB=(RECFM=FB,BLKSIZE=4180,LRECL=4180,DSORG=PS)            
+******************************** Bottom of Data **********************

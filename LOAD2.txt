@@ -1,0 +1,44 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(LOAD2) - 01.00    Line 0000000000 Co
+ Command ===>                                                  Scroll 
+********************************* Top of Data ************************
+//RRFORTEE JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),         
+//             NOTIFY=&SYSUID                                         
+//*****************************************************               
+//* PRIMERA CARGA DE LA BASE DE DATOS******************               
+//*****************************************************               
+//BTICURS  DD DSN=STAFE.BAMBORT.BTICURS.BASE,DISP=SHR                 
+//PRINTDD  DD SYSOUT=*                                                
+//SYSUDUMP DD SYSOUT=*                                                
+//IEFRDER  DD DUMMY                                                   
+//SYSIN    DD *                                                       
+ U ESTO ES UN COMENTARIO                                              
+ S 1 1 1 1 1    BTDCURS                                               
+ L      1 ISRT  CURSO                                                 
+ L        DATA  123                                                   
+/*                                                                    
+//                                                                    
+//SYSIN    DD *                                                       
+ U ESTO ES UN COMENTARIO                                              
+ S 1 1 1 1 1   BTDCURS                                          
+ L        GU   CURSO                                            
+/*                                                              
+//STEP1 EXEC PGM=DFSRRC00,                                      
+//       PARM='DLI,DFSDDLT0,BTBCUR0,8,00,,,,,,,,,N,,',          
+//       REGION=4000K                                           
+//STEPLIB DD DSN=DFSF10.SDFSRESL,DISP=SHR                       
+//IMS     DD DSN=STAFE.BAMBORT.PSBLIB,DISP=SHR                  
+//        DD DSN=STAFE.BAMBORT.DBDLIB,DISP=SHR                  
+//DFSVSAMP DD *                                                 
+ VSRBF=1024,10,D                                                
+ VSRBF=1048,20,I                                                
+ VSRBF=4096,40                                                  
+ IOBF=(4096,100,N,N,SP01)                                       
+ IOBF=(8192,200,N,N,SP01)                                       
+//BTDCURS  DD DSN=STAFE.BAMBORT.BTDCURS.BASE,DISP=SHR           
+******************************** Bottom of Data ****************
+
+

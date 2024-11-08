@@ -1,0 +1,36 @@
+
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(RECOV1) - 01.00   Line 0000000000 Col 00
+ Command ===>                                                  Scroll ===>
+********************************* Top of Data ****************************
+//RRFORTER JOB 1,REGION=0M,CLASS=A,MSGCLASS=A,MSGLEVEL=(1,1),             
+//         NOTIFY=&SYSUID                                                 
+//**********************************************************************  
+//*                   RECOVERY DE CURSO01                              *  
+//**********************************************************************  
+//STEP1    EXEC PGM=DFSRRC00,                                             
+//         PARM='UDR,DFSURDB0,CURSO01,,,,,,,,,,,N,,'                      
+//*        PARM='UDR,DFSURDB0,MFD1CUR,7,0000,,0,,N,0,T,,,N'               
+//STEPLIB   DD DSN=DFSF10.SDFSRESL,DISP=SHR                               
+//DFSRESLB  DD DSN=DFSF10.SDFSRESL,DISP=SHR                               
+//IMS       DD DSN=G$MIGRA.RRFORTE.DBDLIB,DISP=SHR                        
+//DFSUCUM   DD DUMMY                                                      
+//DFSULOG   DD DUMMY                                                      
+//DFSVSAMP  DD *                                                          
+IOBF=(4096,100,N,N,SP01)                                                  
+IOBF=(8192,200,N,N,SP01)                                                  
+/*                                                                        
+//*DFSCTL    DD *                                                         
+//*SBPARM ACTIV=COND                                               
+//*                                                                
+//SYSPRINT  DD SYSOUT=*                                            
+//CURSO01   DD DSN=G$MIGRA.RRFORTE.CURSO01,DISP=SHR                
+//DUMP1     DD DSN=G$MIGRA.RRFORTE.CURSO01.BKUP.#241015.#131031,   
+//             DISP=SHR                                            
+//SYSIN     DD *                                                   
+S  CURSO01  CURSO01  DUMP1                                         
+/*                                                                 
+******************************** Bottom of Data *******************
