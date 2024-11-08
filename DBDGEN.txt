@@ -1,0 +1,17 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(DBDGEN) - 01.99   Line 0000000
+ Command ===>                                                  S
+********************************* Top of Data ******************
+//RRFORTEJ  JOB 'COMPILA DBD',CLASS=A,                          
+//          MSGCLASS=A,MSGLEVEL=(1,1),NOTIFY=&SYSUID            
+//*         TYPRUN=SCAN                                         
+//* --------------------------------------------------------    
+//* ASSEMBLE & LINK DE DBDS DE CURSO IMS SANTA FE               
+//* --------------------------------------------------------    
+//LIBPROC   JCLLIB ORDER=G$MIGRA.RRFORTE.PROCLIB                
+//* --------------------------------------------------------    
+//CURSO01   EXEC PROC=DBDGEN,DBD=CURSO01                        
+******************************** Bottom of Data ****************

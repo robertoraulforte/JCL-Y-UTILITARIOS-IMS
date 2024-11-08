@@ -1,0 +1,30 @@
+
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(RELOAD1) - 01.01  Line 0000000000 Col 00
+ Command ===>                                                  Scroll ===>
+********************************* Top of Data ****************************
+//RRFORTER JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),             
+//         NOTIFY=&SYSUID                                                 
+//*********************************************************************   
+//*                  RELOAD DE LA BASE DE CURSO                           
+//*********************************************************************   
+//*                                                                       
+//RELOAD   EXEC PGM=DFSRRC00,                                             
+//           PARM='ULU,DFSURGL0,CURSO01,,,,,,,,,,,N,,'                    
+//STEPLIB   DD DSNAME=DFSF10.SDFSRESL,DISP=SHR                            
+//DFSRESLB  DD DSNAME=DFSF10.SDFSRESL,DISP=SHR                            
+//IMS       DD DSNAME=G$MIGRA.RRFORTE.DBDLIB,DISP=SHR                     
+//SYSPRINT  DD SYSOUT=*                                                   
+//CURSO01   DD DSN=G$MIGRA.RRFORTE.CURSO01,DISP=SHR                       
+//DFSUINPT  DD DSNAME=G$MIGRA.RRFORTE.CURSO01.UNLOAD,DISP=SHR             
+//DFSVSAMP DD *                                                           
+IOBF=(4096,100,N,N,SP01)                                                  
+IOBF=(8192,200,N,N,SP01)                                                  
+/*                                                                        
+//DFSCTL    DD *                                                  
+SBPARM ACTIV=COND                                                 
+/*                                                                
+******************************** Bottom of Data ******************

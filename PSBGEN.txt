@@ -1,0 +1,17 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(PSBGEN) - 01.02   Line 000000
+ Command ===>                                                  
+********************************* Top of Data *****************
+//RRFORTEK  JOB 'COMPILA PSB',CLASS=A,                         
+//          MSGCLASS=A,MSGLEVEL=(1,1),NOTIFY=&SYSUID           
+//*         TYPRUN=SCAN                                        
+//* --------------------------------------------------------   
+//* ASSEMBLE & LINK DE PSBS DE CURSO IMS SANTA FE              
+//* --------------------------------------------------------   
+//LIBPROC   JCLLIB ORDER=G$MIGRA.RRFORTE.PROCLIB               
+//* --------------------------------------------------------   
+//RRFCUR01  EXEC PROC=PSBGEN,PSB=RRFCUR01                      
+******************************** Bottom of Data ***************

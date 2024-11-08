@@ -1,0 +1,60 @@
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(LOADCUR) - 01.14  Line 000000
+ Command ===>                                                  
+********************************* Top of Data *****************
+//RRFORTEY JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),  
+//         NOTIFY=&SYSUID                                      
+//*****************************************************        
+//* PRIMERA CARGA DE LA BASE DE DATOS******************        
+//*****************************************************        
+//STEP1 EXEC PGM=DFSRRC00,                                     
+//       PARM='DLI,DFSDDLT0,RRFCUR01,8,00,,,,,,,,,N,,',        
+//       REGION=4000K                                          
+//STEPLIB DD DSN=DFSF10.SDFSRESL,DISP=SHR                      
+//IMS     DD DSN=G$MIGRA.RRFORTE.PSBLIB,DISP=SHR               
+//        DD DSN=G$MIGRA.RRFORTE.DBDLIB,DISP=SHR               
+//DFSVSAMP DD *                                                
+ VSRBF=1024,10,D                                               
+ VSRBF=1048,20,I                                               
+ VSRBF=4096,40                                                 
+ IOBF=(4096,100,N,N,SP01)                                      
+ IOBF=(8192,200,N,N,SP01)                                      
+//CURSO01 DD DSN=G$MIGRA.RRFORTE.CURSO01,DISP=SHR              
+//PRINTDD DD SYSOUT=*                                        
+//SYSUDUMP DD SYSOUT=*                                       
+//IEFRDER DD DUMMY                                           
+//SYSIN   DD *                                               
+U LISTAR VARIOS SEGMENTOS CON GET NEXT                       
+S 1 1 1 1 1    CURSO01                                       
+L        GU                                                  
+EH8    OK                                                    
+L   9999 GN                                                  
+/*                                                           
+//                                                           
+//SYSIN   DD *                                               
+U INSERTAR VARIOS DATOS                                      
+S 1 1 1 1 1    CURSO01                                       
+L        ISRT  CURSO                                         
+L   0021 DATA  72346ANG                                      
+L        ISRT  CURSO                                         
+L   0021 DATA  72347KIM                                      
+/*                                                           
+//SYSIN   DD *                                               
+U ESTO ES UN COMENTARIO                                      
+S 1 1 1 1 1    CURSO01                                       
+L        GU    CURSO                                         
+//                                                           
+U ACTUALIZANDO DATOS                                         
+S 1 1 1 1 1    CURSO01                                       
+L        GHU   CURSO   (CURSOID  =72346ANG             )     
+L        REPL                                                
+L   0021 DATA  72346ANG                                      
+/*                                                           
+U BORRANDO UN SEGMENTO ESPECIFICO                            
+S 1 1 1 1 1    CURSO01                                       
+L       GHU    CURSO   (CURSOID  =72346ANG             )     
+L       DLET                                                 
+/*                                                           
+******************************** Bottom of Data *************

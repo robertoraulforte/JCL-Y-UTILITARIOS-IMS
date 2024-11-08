@@ -1,0 +1,48 @@
+
+
+
+
+ BROWSE    G$MIGRA.RRFORTE.JOBLIB(RECOVERY) - 01.00 Line 0000000000
+ Command ===>                                                  Scro
+********************************* Top of Data *********************
+//RRFORTEZ JOB 1,REGION=0M,CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),      
+//         NOTIFY=&SYSUID                                          
+//*****************************************************            
+//STEP1    EXEC PGM=DFSRRC00,                                      
+//         PARM='UDR,DFSURDB0,MFD1CUR,,,,,,,,,,,N,,'               
+//*        PARM='UDR,DFSURDB0,MFD1CUR,7,0000,,0,,N,0,T,,,N'        
+//STEPLIB   DD DSN=DFSF10.SDFSRESL,DISP=SHR                        
+//DFSRESLB  DD DSN=DFSF10.SDFSRESL,DISP=SHR                        
+//IMS       DD DSN=STAFE.RRONCHI.DBDLIB,DISP=SHR                   
+//DFSUCUM   DD DUMMY                                               
+//DFSULOG   DD DUMMY                                               
+//DFSVSAMP  DD *                                                   
+4096,4                                                             
+2048,4                                                             
+1024,4                                                             
+IOBF=(4096,100,N,N,SP01)                                           
+IOBF=(8192,200,N,N,SP01)                                           
+/*                                                                 
+//DFSCTL    DD *                                                
+SBPARM ACTIV=COND                                               
+/*                                                              
+//SYSPRINT  DD SYSOUT=*                                         
+//MFD1CUR1  DD DSN=STAFE.RRONCHI.RRD1CUR1.BASE,DISP=OLD         
+//DUMP1     DD DSN=STAFE.RRONCHI.RRD1IMA1,DISP=SHR              
+//SYSIN     DD *                                                
+S  MFD1CUR  MFD1CUR1 DUMP1                                      
+/*                                                              
+//STEP2    EXEC PGM=DFSRRC00,                                   
+//         PARM='UDR,DFSURDB0,RRI1CUR,,,,,,,,,,,N,,'            
+//STEPLIB   DD DSN=DFSF10.SDFSRESL,DISP=SHR                     
+//DFSRESLB  DD DSN=DFSF10.SDFSRESL,DISP=SHR                     
+//IMS       DD DSN=STAFE.RRONCHI.DBDLIB,DISP=SHR                
+//DFSUCUM   DD DUMMY                                            
+//DFSULOG   DD DUMMY                                            
+//SYSPRINT  DD SYSOUT=*                                         
+//RRI1CUR   DD DSN=STAFE.RRONCHI.RRI1CUR.BASE,DISP=OLD          
+//DUMP      DD DSN=STAFE.RRONCHI.RRI1IMAG,DISP=SHR              
+//SYSIN     DD *                                                
+S  MFI1CUR  MFI1CUR  DUMP                                       
+/*                                                              
+******************************** Bottom of Data ****************
